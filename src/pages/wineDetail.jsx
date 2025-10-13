@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import WineDetailPairings from "../components/wineDetailPairings.jsx";
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -30,9 +31,7 @@ export default function WineDetail() {
       <p>
         <strong>Alcol:</strong> {wine.alcohol}%
       </p>
-      <p>
-        <strong>Abbinamenti:</strong> {wine.pairings?.join(", ")}
-      </p>
+      <WineDetailPairings wine={wine} />
       <p>
         <strong>Prezzo:</strong> €{wine.price}
       </p>

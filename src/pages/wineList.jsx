@@ -5,11 +5,12 @@ const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export default function WineList() {
   const [wines, setWines] = useState([]);
+  const [filteredWines, setFilteredWines] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Tutti");
-  const [sortOrder, setSortOrder] = useState("default"); // 👈 nuovo stato per l’ordinamento
-  const [filteredWines, setFilteredWines] = useState([]);
+  const [sortOrder, setSortOrder] = useState("default");
   const [error, setError] = useState("");
+  const [selectedForCompare, setSelectedForCompare] = useState([]);
 
   useEffect(() => {
     fetch(BASE_URL)
@@ -27,7 +28,6 @@ export default function WineList() {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       const lowerSearch = search.toLowerCase();
-
       let filtered = wines.filter((wine) => {
         const matchTitle = wine.title.toLowerCase().includes(lowerSearch);
         const matchCategory =
@@ -35,7 +35,6 @@ export default function WineList() {
         return matchTitle && matchCategory;
       });
 
-      // 🔤 Ordinamento alfabetico
       if (sortOrder === "asc") {
         filtered = [...filtered].sort((a, b) => a.title.localeCompare(b.title));
       } else if (sortOrder === "desc") {
@@ -57,17 +56,33 @@ export default function WineList() {
     return () => clearTimeout(timeoutId);
   }, [search, selectedCategory, sortOrder, wines]);
 
+  const toggleSelect = (wine) => {
+    let newSelection;
+
+    if (selectedForCompare.find((w) => w.id === wine.id)) {
+      newSelection = selectedForCompare.filter((w) => w.id !== wine.id);
+    } else {
+      if (selectedForCompare.length < 2) {
+        newSelection = [...selectedForCompare, wine];
+      } else {
+        alert("Puoi selezionare solo 2 vini per il confronto");
+        return;
+      }
+    }
+
+    setSelectedForCompare(newSelection);
+    localStorage.setItem("winesToCompare", JSON.stringify(newSelection));
+  };
+
   if (wines.length === 0)
     return <p className="text-center">Caricamento vini...</p>;
 
-  // 🔍 Categorie uniche
   const categories = ["Tutti", ...new Set(wines.map((w) => w.category))];
 
   return (
     <div className="container my-4">
       <h1 className="mb-4 text-center">Lista Vini</h1>
 
-      {/* 🔍 Ricerca, categoria e ordinamento */}
       <div className="row mb-4 justify-content-center g-2">
         <div className="col-12 col-md-4">
           <input
@@ -78,7 +93,6 @@ export default function WineList() {
             className="form-control"
           />
         </div>
-
         <div className="col-12 col-md-3">
           <select
             value={selectedCategory}
@@ -92,7 +106,6 @@ export default function WineList() {
             ))}
           </select>
         </div>
-
         <div className="col-12 col-md-3">
           <select
             value={sortOrder}
@@ -106,7 +119,6 @@ export default function WineList() {
         </div>
       </div>
 
-      {/* ⚠️ Messaggio di errore */}
       {error && <p className="text-danger text-center">{error}</p>}
 
       <div className="row">
@@ -121,21 +133,48 @@ export default function WineList() {
                 <h6 className="card-subtitle mb-2 text-muted">
                   {wine.category}
                 </h6>
-                {wine.id ? (
+
+                <div className="form-check mt-2">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id={`compare-${wine.id}`}
+                    checked={!!selectedForCompare.find((w) => w.id === wine.id)}
+                    onChange={() => toggleSelect(wine)}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor={`compare-${wine.id}`}
+                  >
+                    Confronta
+                  </label>
+                </div>
+
+                {wine.id && (
                   <Link
                     to={`/wines/${wine.id}`}
-                    className="btn btn-primary mt-auto"
+                    className="btn btn-outline-primary mt-2"
                   >
                     Dettagli
                   </Link>
-                ) : (
-                  <p>ID non disponibile</p>
                 )}
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      {selectedForCompare.length > 0 && (
+        <div className="text-center mt-4">
+          <Link
+            to="/comparatore"
+            state={{ wines: selectedForCompare }}
+            className="btn btn-success"
+          >
+            Vai al comparatore ({selectedForCompare.length})
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

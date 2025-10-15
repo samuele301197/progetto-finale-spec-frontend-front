@@ -21,23 +21,34 @@ export default function WineDetail() {
   if (!wine) return <p className="text-center">Caricamento vino...</p>;
 
   return (
-    <div className="container my-4">
-      <h1>{wine.title}</h1>
-      <h5 className="text-muted">{wine.category}</h5>
-      <p>{wine.description}</p>
-      <p>
-        <strong>Regione:</strong> {wine.region}, {wine.country}
-      </p>
-      <p>
-        <strong>Alcol:</strong> {wine.alcohol}%
-      </p>
-      <WineDetailPairings wine={wine} />
-      <p>
-        <strong>Prezzo:</strong> €{wine.price}
-      </p>
-      <Link to="/" className="btn btn-secondary mt-3">
-        Torna alla lista
-      </Link>
+    <div
+      style={{
+        minHeight: "100vh",
+        backgroundImage: 'url("/details.jpg")',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        overflow: "hidden",
+      }}
+    >
+      <div className="container my-4 py-5">
+        <h1>{wine.title}</h1>
+        <h5>{wine.description}</h5>
+        <h6 className="text-muted">{wine.category}</h6>
+        <p>
+          <strong>Regione:</strong> {wine.region}, {wine.country}
+        </p>
+        <p>
+          <strong>Alcol:</strong> {wine.alcohol}%
+        </p>
+        <WineDetailPairings wine={wine} />
+        <p>
+          <strong>Prezzo:</strong> €{wine.price}
+        </p>
+        <Link to="/list" className="btn btn-secondary mt-3">
+          Torna alla lista
+        </Link>
+      </div>
     </div>
   );
 }

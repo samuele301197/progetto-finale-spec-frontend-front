@@ -31,8 +31,10 @@ export default function FavoritesPage() {
           className="d-flex flex-column align-items-center justify-content-center text-center"
           style={{ minHeight: "60vh" }}
         >
-          <h2 className="text-muted mb-3">🤍 Nessun preferito salvato</h2>
-          <Link to="/list" className="btn btn-secondary">
+          <h2 className="text-muted mb-3">
+            <i className="fa-regular fa-heart"></i> Nessun preferito salvato
+          </h2>
+          <Link to="/list" className="btn btn-dark rounded-pill px-4">
             Torna alla lista
           </Link>
         </div>

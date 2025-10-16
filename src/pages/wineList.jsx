@@ -9,20 +9,30 @@ export default function WineList() {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Tutti");
   const [sortOrder, setSortOrder] = useState("asc");
-  const [selectedForCompare, setSelectedForCompare] = useState([]);
   const [favorites, setFavorites] = useState(() => {
     return JSON.parse(localStorage.getItem("favorites") || "[]");
   });
-
+  const [toastMessage, setToastMessage] = useState("");
   const isFavorite = (id) => favorites.some((f) => f.id === id);
 
+  const [selectedForCompare, setSelectedForCompare] = useState(() => {
+    return JSON.parse(localStorage.getItem("winesToCompare") || "[]");
+  });
+
   const toggleFavorite = (wine) => {
-    const newFavorites = isFavorite(wine.id)
+    const alreadyFavorite = isFavorite(wine.id);
+
+    const newFavorites = alreadyFavorite
       ? favorites.filter((f) => f.id !== wine.id)
       : [...favorites, wine];
-
     setFavorites(newFavorites);
     localStorage.setItem("favorites", JSON.stringify(newFavorites));
+    setToastMessage(
+      alreadyFavorite
+        ? `${wine.title} rimosso dai preferiti`
+        : `${wine.title} aggiunto ai preferiti`
+    );
+    setTimeout(() => setToastMessage(""), 2000);
   };
 
   const toggleSelect = (wine) => {
@@ -88,11 +98,11 @@ export default function WineList() {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         color: "white",
-        overflow: "hidden",
+        overflow: "auto",
       }}
     >
       <div className="container my-4 py-5">
-        <h1 className="mb-4 text-center">Lista Vini</h1>
+        <h1 className="my-4 text-center">Lista Vini</h1>
 
         <div className="row mb-4 g-2 justify-content-center">
           <div className="col-12 col-md-4">
@@ -125,11 +135,12 @@ export default function WineList() {
               onClick={() =>
                 setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"))
               }
+              title={sortOrder === "asc" ? "A - Z" : "Z - A"}
             >
               {sortOrder === "asc" ? (
-                <i className="fa-solid fa-arrow-down"></i>
+                <i className="fa-solid fa-arrow-down-a-z"></i>
               ) : (
-                <i className="fa-solid fa-arrow-up"></i>
+                <i className="fa-solid fa-arrow-up-z-a"></i>
               )}
             </span>
           </div>
@@ -160,7 +171,11 @@ export default function WineList() {
                           : "Aggiungi ai preferiti"
                       }
                     >
-                      {isFavorite(wine.id) ? "♥️" : "🤍"}
+                      {isFavorite(wine.id) ? (
+                        <i className="fa-solid fa-heart"></i>
+                      ) : (
+                        <i className="fa-regular fa-heart"></i>
+                      )}
                     </span>
 
                     <span
@@ -177,9 +192,11 @@ export default function WineList() {
                           : "Aggiungi al confronto"
                       }
                     >
-                      {selectedForCompare.find((w) => w.id === wine.id)
-                        ? "✔️"
-                        : "🆚"}
+                      {selectedForCompare.find((w) => w.id === wine.id) ? (
+                        <i className="fa-solid fa-check"></i>
+                      ) : (
+                        <i className="fa-solid fa-scale-balanced"></i>
+                      )}
                     </span>
                   </div>
 
@@ -197,17 +214,43 @@ export default function WineList() {
 
         {selectedForCompare.length > 0 && (
           <div
-            className="position-fixed bottom-0 end-0 mb-4 me-4"
-            style={{ zIndex: 1100 }}
+            className="position-fixed end-0 mb-4 me-4"
+            style={{ bottom: "60px", zIndex: 1100 }}
           >
             <Link
-              to="/comparatore"
+              to={selectedForCompare.length >= 2 ? "/comparatore" : "#"}
               state={{ wines: selectedForCompare }}
-              className="btn btn-success btn-lg shadow"
-              style={{ borderRadius: "50px", padding: "0.75rem 1.5rem" }}
+              className={`btn btn-success btn-lg shadow`}
+              style={{
+                borderRadius: "50px",
+                padding: "0.75rem 1.5rem",
+                pointerEvents: selectedForCompare.length < 2 ? "none" : "auto",
+                opacity: selectedForCompare.length < 2 ? 0.5 : 1,
+              }}
             >
               Vai al comparatore ({selectedForCompare.length})
             </Link>
+          </div>
+        )}
+
+        {toastMessage && (
+          <div
+            className="toast show align-items-center text-bg-dark border-0 rounded-pill position-fixed bottom-0 end-0 m-3"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+            style={{ zIndex: 1100 }}
+          >
+            <div className="d-flex">
+              <div className="toast-body">{toastMessage}</div>
+              <button
+                type="button"
+                className="btn-close btn-close-white me-2 m-auto"
+                data-bs-dismiss="toast"
+                aria-label="Close"
+                onClick={() => setToastMessage("")}
+              ></button>
+            </div>
           </div>
         )}
       </div>

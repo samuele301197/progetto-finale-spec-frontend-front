@@ -15,6 +15,9 @@ export default function NavBar() {
         </Link>
 
         <div className="d-none d-md-flex gap-3">
+          <Link to="/" className="nav-link text-white text-decoration-none">
+            Home
+          </Link>
           <Link to="/list" className="nav-link text-white text-decoration-none">
             Lista Vini
           </Link>
@@ -33,15 +36,25 @@ export default function NavBar() {
         </div>
 
         <div className="d-flex d-md-none gap-3">
-          <Link to="/" className="text-decoration-none" title="Lista Vini">
-            🍷
+          <Link to="/" className="text-decoration-none text-white" title="Home">
+            <i className="fa-regular fa-house"></i>
+          </Link>
+          <Link to="/list" className="text-decoration-none" title="Lista Vini">
+            <i className="fa-solid fa-wine-glass text-white"></i>
           </Link>
           <Link
             to="/favorites"
             className="text-decoration-none"
             title="Preferiti"
           >
-            🤍
+            <i className="fa-regular fa-heart text-white"></i>
+          </Link>
+          <Link
+            to="/comparatore"
+            className="text-decoration-none text-white"
+            title="Comparatore"
+          >
+            <i className="fa-solid fa-scale-balanced text-white"></i>
           </Link>
         </div>
       </div>

@@ -10,7 +10,7 @@ export default function HomePage() {
         backgroundPosition: "top",
         backgroundRepeat: "no-repeat",
         color: "white",
-        overflow: "hidden",
+        overflow: "auto",
       }}
     >
       <div className="container my-5">

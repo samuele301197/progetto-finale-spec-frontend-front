@@ -10,7 +10,7 @@ export default function WineDetailPairings({ wine }) {
         {wine.pairings.map((pairing, i) => (
           <span
             key={i}
-            className="badge bg-success me-1"
+            className="badge bg-success mx-1 my-1"
             style={{ fontSize: "0.9rem" }}
           >
             {pairing}

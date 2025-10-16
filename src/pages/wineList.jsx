@@ -91,7 +91,7 @@ export default function WineList() {
         overflow: "hidden",
       }}
     >
-      <div className="container my-4">
+      <div className="container my-4 py-5">
         <h1 className="mb-4 text-center">Lista Vini</h1>
 
         <div className="row mb-4 g-2 justify-content-center">
@@ -150,7 +150,7 @@ export default function WineList() {
                   <h5 className="card-title">{wine.title}</h5>
                   <h6 className="card-subtitle mb-2">{wine.category}</h6>
 
-                  <div className="mt-2 d-flex align-items-center gap-2">
+                  <div className="my-2 d-flex align-items-center gap-2">
                     <span
                       style={{ cursor: "pointer", fontSize: "1.5rem" }}
                       onClick={() => toggleFavorite(wine)}

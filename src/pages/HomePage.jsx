@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function HomePage() {
   return (
     <div
@@ -12,7 +14,7 @@ export default function HomePage() {
       }}
     >
       <div className="container my-5">
-        <section className="py-5 border-bottom">
+        <section className="py-5 border-bottom border-dark">
           <h2 className="fw-bold mb-3 text-center">
             Trova il vino perfetto 🍷
           </h2>
@@ -22,6 +24,13 @@ export default function HomePage() {
             <strong>serata</strong> che stai vivendo e all'
             <strong>esperienza</strong> che vuoi assaporare.
           </p>
+          <div className="d-flex justify-content-center">
+            <Link to="/list" className="text-decoration-none">
+              <button className="btn btn-dark px-4 py-2 rounded-pill shadow-sm">
+                Scopri la Lista Vini
+              </button>
+            </Link>
+          </div>
         </section>
       </div>
 
@@ -36,6 +45,13 @@ export default function HomePage() {
           Ogni dettaglio — dal profumo all'abbinamento giusto — a colpo
           d'occhio!
         </p>
+        <div className="d-flex justify-content-center">
+          <Link to="/comparatore" className="text-decoration-none">
+            <button className="btn btn-dark px-4 py-2 rounded-pill shadow-sm">
+              Vai al comparatore
+            </button>
+          </Link>
+        </div>
       </section>
     </div>
   );

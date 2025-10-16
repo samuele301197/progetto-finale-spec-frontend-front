@@ -38,6 +38,12 @@ export default function ComparisonPage() {
     });
   }, [location.state]);
 
+  const handleRemoveWine = (id) => {
+    const updatedWines = wines.filter((wine) => wine.id !== id);
+    setWines(updatedWines);
+    localStorage.setItem("winesToCompare", JSON.stringify(updatedWines));
+  };
+
   if (loading) return <p className="text-center mt-4">Caricamento vini...</p>;
 
   if (wines.length === 0)
@@ -111,19 +117,31 @@ export default function ComparisonPage() {
                   {wine.pairings?.length > 0 && (
                     <div className="mt-3">
                       <strong>Abbinamenti consigliati:</strong>
-                      <ul className="list-unstyled mt-2 mb-0">
-                        {wine.pairings.map((pair, i) => (
-                          <li key={i}>- {pair}</li>
+                      <div>
+                        {wine.pairings.map((pairing, i) => (
+                          <span
+                            key={i}
+                            className="badge bg-success me-1"
+                            style={{ fontSize: "0.9rem" }}
+                          >
+                            {pairing}
+                          </span>
                         ))}
-                      </ul>
+                      </div>
                     </div>
                   )}
+                  <button
+                    className="btn btn-danger btn-sm mt-3"
+                    onClick={() => handleRemoveWine(wine.id)}
+                  >
+                    Rimuovi
+                  </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
-        <Link to="/" className="btn btn-secondary mt-3">
+        <Link to="/list" className="btn btn-secondary mt-3">
           Torna alla lista
         </Link>
       </div>

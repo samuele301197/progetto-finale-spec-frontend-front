@@ -48,7 +48,7 @@ export default function HomePage() {
         <div className="d-flex justify-content-center">
           <Link to="/comparatore" className="text-decoration-none">
             <button className="btn btn-dark px-4 py-2 rounded-pill shadow-sm">
-              Vai al comparatore
+              Vai al Comparatore
             </button>
           </Link>
         </div>

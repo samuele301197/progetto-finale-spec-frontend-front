@@ -8,7 +8,7 @@ export default function WineList() {
   const [filteredWines, setFilteredWines] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Tutti");
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortOrder, setSortOrder] = useState(null);
   const [favorites, setFavorites] = useState(() => {
     return JSON.parse(localStorage.getItem("favorites") || "[]");
   });
@@ -73,13 +73,17 @@ export default function WineList() {
         return matchTitle && matchCategory;
       });
 
-      const sorted = [...filtered].sort((a, b) =>
-        sortOrder === "asc"
-          ? a.title.localeCompare(b.title)
-          : b.title.localeCompare(a.title)
-      );
+      let result = [...filtered];
 
-      setFilteredWines(sorted);
+      if (sortOrder) {
+        result.sort((a, b) =>
+          sortOrder === "asc"
+            ? a.title.localeCompare(b.title)
+            : b.title.localeCompare(a.title)
+        );
+      }
+
+      setFilteredWines(result);
     }, 200);
 
     return () => clearTimeout(timeoutId);
@@ -133,14 +137,24 @@ export default function WineList() {
             <span
               style={{ cursor: "pointer", fontSize: "1.5rem" }}
               onClick={() =>
-                setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"))
+                setSortOrder((prev) =>
+                  prev === null ? "asc" : prev === "asc" ? "desc" : null
+                )
               }
-              title={sortOrder === "asc" ? "A - Z" : "Z - A"}
+              title={
+                sortOrder === "asc"
+                  ? "Ordina Z - A"
+                  : sortOrder === "desc"
+                  ? "Ripristina ordine originale"
+                  : "Ordina A - Z"
+              }
             >
               {sortOrder === "asc" ? (
                 <i className="fa-solid fa-arrow-down-a-z"></i>
-              ) : (
+              ) : sortOrder === "desc" ? (
                 <i className="fa-solid fa-arrow-up-z-a"></i>
+              ) : (
+                <i className="fa-solid fa-arrow-down-wide-short"></i>
               )}
             </span>
           </div>

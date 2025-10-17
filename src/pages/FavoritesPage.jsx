@@ -20,7 +20,7 @@ export default function FavoritesPage() {
       <div
         style={{
           minHeight: "100vh",
-          backgroundImage: 'url("/wineShop.webp")',
+          backgroundImage: 'url("/details-strong.jpg")',
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -45,7 +45,7 @@ export default function FavoritesPage() {
     <div
       style={{
         minHeight: "100vh",
-        backgroundImage: 'url("/wineShop.webp")',
+        backgroundImage: 'url("/details-strong.jpg")',
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -76,9 +76,14 @@ export default function FavoritesPage() {
                       Dettagli
                     </Link>
                     <button
-                      className="btn btn-danger btn-sm"
+                      className="btn btn-danger btn-sm mt-3 align-self-start"
+                      style={{
+                        borderRadius: "20px",
+                        padding: "6px 14px",
+                      }}
                       onClick={() => removeFavorite(wine.id)}
                     >
+                      <i className="fa-solid fa-trash me-1"></i>
                       Rimuovi
                     </button>
                   </div>

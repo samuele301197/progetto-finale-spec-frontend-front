@@ -20,8 +20,8 @@ export default function HomePage() {
           </h2>
           <p className="text-center fs-5">
             Con <strong>WineFounder</strong> è facile scoprire il vino ideale
-            per ogni occasione: in base ai tuoi <strong>piatti</strong>, alla{" "}
-            <strong>serata</strong> che stai vivendo e all'
+            per ogni occasione: scegli i <strong>piatti</strong> da abbinare, la{" "}
+            <strong>serata</strong> che vuoi vivere e l'
             <strong>esperienza</strong> che vuoi assaporare.
           </p>
           <div className="d-flex justify-content-center">

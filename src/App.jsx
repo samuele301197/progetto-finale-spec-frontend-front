@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage.jsx";
 import LoaderLayout from "./components/loader/LoaderLayout.jsx";
 import HomeWrapper from "./components/LoaderWrapper/HomeWrapper.jsx";
 import WineListWrapper from "./components/LoaderWrapper/WineListWrapper.jsx";
+import Footer from "./components/Footer.jsx";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/comparatore" element={<ComparisonPage />} />
           <Route path="/wines/:id" element={<WineDetail />} />
         </Routes>
+        <Footer />
       </LoaderLayout>
     </>
   );

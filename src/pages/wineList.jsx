@@ -41,9 +41,10 @@ export default function WineList() {
 
     if (alreadySelected) {
       newSelection = selectedForCompare.filter((w) => w.id !== wine.id);
-    } else if (selectedForCompare.length < 2) {
+    } else if (selectedForCompare.length < 4) {
       newSelection = [...selectedForCompare, wine];
     } else {
+      alert("Puoi confrontare al massimo 4 vini alla volta.");
       return;
     }
 
@@ -161,69 +162,76 @@ export default function WineList() {
         </div>
 
         <div className="row">
-          {filteredWines.map((wine) => (
-            <div key={wine.id} className="col-12 col-sm-6 col-lg-4 mb-4">
-              <div
-                className="card h-100 text-white shadow-sm border-0"
-                style={{
-                  backgroundColor: "#1c1c1c",
-                  borderRadius: "15px",
-                  transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                }}
-              >
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title">{wine.title}</h5>
-                  <h6 className="card-subtitle mb-2">{wine.category}</h6>
+          {filteredWines.length === 0 ? (
+            <div className="text-center mt-5">
+              <h4 className="text-light">Nessun risultato trovato</h4>
+              <p className="text-light">Prova a modificare la ricerca.</p>
+            </div>
+          ) : (
+            filteredWines.map((wine) => (
+              <div key={wine.id} className="col-12 col-sm-6 col-lg-4 mb-4">
+                <div
+                  className="card h-100 text-white shadow-sm border-0"
+                  style={{
+                    backgroundColor: "#1c1c1c",
+                    borderRadius: "15px",
+                    transition: "transform 0.2s ease, box-shadow 0.2s ease",
+                  }}
+                >
+                  <div className="card-body d-flex flex-column">
+                    <h5 className="card-title">{wine.title}</h5>
+                    <h6 className="card-subtitle mb-2">{wine.category}</h6>
 
-                  <div className="my-2 d-flex align-items-center gap-2">
-                    <span
-                      style={{ cursor: "pointer", fontSize: "1.5rem" }}
-                      onClick={() => toggleFavorite(wine)}
-                      title={
-                        isFavorite(wine.id)
-                          ? "Rimuovi dai preferiti"
-                          : "Aggiungi ai preferiti"
-                      }
-                    >
-                      {isFavorite(wine.id) ? (
-                        <i className="fa-solid fa-heart"></i>
-                      ) : (
-                        <i className="fa-regular fa-heart"></i>
-                      )}
-                    </span>
+                    <div className="my-2 d-flex align-items-center gap-2">
+                      <span
+                        style={{ cursor: "pointer", fontSize: "1.5rem" }}
+                        onClick={() => toggleFavorite(wine)}
+                        title={
+                          isFavorite(wine.id)
+                            ? "Rimuovi dai preferiti"
+                            : "Aggiungi ai preferiti"
+                        }
+                      >
+                        {isFavorite(wine.id) ? (
+                          <i className="fa-solid fa-heart"></i>
+                        ) : (
+                          <i className="fa-regular fa-heart"></i>
+                        )}
+                      </span>
 
-                    <span
-                      style={{
-                        cursor: "pointer",
-                        fontSize: "1.5rem",
-                        display: "inline-block",
-                        textAlign: "center",
-                      }}
-                      onClick={() => toggleSelect(wine)}
-                      title={
-                        selectedForCompare.find((w) => w.id === wine.id)
-                          ? "Rimuovi dal confronto"
-                          : "Aggiungi al confronto"
-                      }
+                      <span
+                        style={{
+                          cursor: "pointer",
+                          fontSize: "1.5rem",
+                          display: "inline-block",
+                          textAlign: "center",
+                        }}
+                        onClick={() => toggleSelect(wine)}
+                        title={
+                          selectedForCompare.find((w) => w.id === wine.id)
+                            ? "Rimuovi dal confronto"
+                            : "Aggiungi al confronto"
+                        }
+                      >
+                        {selectedForCompare.find((w) => w.id === wine.id) ? (
+                          <i className="fa-solid fa-check"></i>
+                        ) : (
+                          <i className="fa-solid fa-scale-balanced"></i>
+                        )}
+                      </span>
+                    </div>
+
+                    <Link
+                      to={`/wines/${wine.id}`}
+                      className="btn btn-outline-light mt-auto"
                     >
-                      {selectedForCompare.find((w) => w.id === wine.id) ? (
-                        <i className="fa-solid fa-check"></i>
-                      ) : (
-                        <i className="fa-solid fa-scale-balanced"></i>
-                      )}
-                    </span>
+                      Dettagli
+                    </Link>
                   </div>
-
-                  <Link
-                    to={`/wines/${wine.id}`}
-                    className="btn btn-outline-light mt-auto"
-                  >
-                    Dettagli
-                  </Link>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
 
         {selectedForCompare.length > 0 && (

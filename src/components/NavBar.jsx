@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function NavBar() {
   return (
@@ -7,55 +7,107 @@ export default function NavBar() {
       style={{ zIndex: 1000 }}
     >
       <div className="container d-flex justify-content-between align-items-center py-2">
-        <Link
+        <NavLink
           to="/"
           className="navbar-brand text-white text-decoration-none fw-bold"
         >
           WineFounder
-        </Link>
+        </NavLink>
 
         <div className="d-none d-md-flex gap-3">
-          <Link to="/" className="nav-link text-white text-decoration-none">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `nav-link text-decoration-none ${
+                isActive ? "text-secondary fw-bold" : "text-white"
+              }`
+            }
+          >
             Home
-          </Link>
-          <Link to="/list" className="nav-link text-white text-decoration-none">
+          </NavLink>
+
+          <NavLink
+            to="/list"
+            className={({ isActive }) =>
+              `nav-link text-decoration-none ${
+                isActive ? "text-secondary fw-bold" : "text-white"
+              }`
+            }
+          >
             Lista Vini
-          </Link>
-          <Link
+          </NavLink>
+
+          <NavLink
             to="/favorites"
-            className="nav-link text-white text-decoration-none"
+            className={({ isActive }) =>
+              `nav-link text-decoration-none ${
+                isActive ? "text-secondary fw-bold" : "text-white"
+              }`
+            }
           >
             Preferiti
-          </Link>
-          <Link
+          </NavLink>
+
+          <NavLink
             to="/comparatore"
-            className="nav-link text-white text-decoration-none"
+            className={({ isActive }) =>
+              `nav-link text-decoration-none ${
+                isActive ? "text-secondary fw-bold" : "text-white"
+              }`
+            }
           >
             Comparatore
-          </Link>
+          </NavLink>
         </div>
 
         <div className="d-flex d-md-none gap-3">
-          <Link to="/" className="text-decoration-none text-white" title="Home">
+          <NavLink
+            to="/"
+            title="Home"
+            className={({ isActive }) =>
+              `text-decoration-none ${
+                isActive ? "text-secondary" : "text-white"
+              }`
+            }
+          >
             <i className="fa-regular fa-house"></i>
-          </Link>
-          <Link to="/list" className="text-decoration-none" title="Lista Vini">
-            <i className="fa-solid fa-wine-glass text-white"></i>
-          </Link>
-          <Link
+          </NavLink>
+
+          <NavLink
+            to="/list"
+            title="Lista Vini"
+            className={({ isActive }) =>
+              `text-decoration-none ${
+                isActive ? "text-secondary" : "text-white"
+              }`
+            }
+          >
+            <i className="fa-solid fa-wine-glass"></i>
+          </NavLink>
+
+          <NavLink
             to="/favorites"
-            className="text-decoration-none"
             title="Preferiti"
+            className={({ isActive }) =>
+              `text-decoration-none ${
+                isActive ? "text-secondary" : "text-white"
+              }`
+            }
           >
-            <i className="fa-regular fa-heart text-white"></i>
-          </Link>
-          <Link
+            <i className="fa-regular fa-heart"></i>
+          </NavLink>
+
+          <NavLink
             to="/comparatore"
-            className="text-decoration-none text-white"
             title="Comparatore"
+            className={({ isActive }) =>
+              `text-decoration-none ${
+                isActive ? "text-secondary" : "text-white"
+              }`
+            }
           >
-            <i className="fa-solid fa-scale-balanced text-white"></i>
-          </Link>
+            <i className="fa-solid fa-scale-balanced"></i>
+          </NavLink>
         </div>
       </div>
     </nav>

@@ -12,10 +12,8 @@ export default function WineDetail() {
   });
   const [toastMessage, setToastMessage] = useState("");
 
-  // Controlla se il vino è già nei preferiti
   const isFavorite = (id) => favorites.some((f) => f.id === id);
 
-  // Aggiungi/rimuovi dai preferiti
   const toggleFavorite = (wine) => {
     let updatedFavorites;
     if (isFavorite(wine.id)) {

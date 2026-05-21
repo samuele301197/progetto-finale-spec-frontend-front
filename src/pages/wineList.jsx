@@ -30,7 +30,7 @@ export default function WineList() {
     setToastMessage(
       alreadyFavorite
         ? `${wine.title} rimosso dai preferiti`
-        : `${wine.title} aggiunto ai preferiti`
+        : `${wine.title} aggiunto ai preferiti`,
     );
     setTimeout(() => setToastMessage(""), 2000);
   };
@@ -80,7 +80,7 @@ export default function WineList() {
         result.sort((a, b) =>
           sortOrder === "asc"
             ? a.title.localeCompare(b.title)
-            : b.title.localeCompare(a.title)
+            : b.title.localeCompare(a.title),
         );
       }
 
@@ -98,7 +98,7 @@ export default function WineList() {
     <div
       style={{
         minHeight: "100vh",
-        backgroundImage: 'url("/tela.jpg")',
+        backgroundImage: 'url("/vino-tela.png")',
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -139,15 +139,15 @@ export default function WineList() {
               style={{ cursor: "pointer", fontSize: "1.5rem" }}
               onClick={() =>
                 setSortOrder((prev) =>
-                  prev === null ? "asc" : prev === "asc" ? "desc" : null
+                  prev === null ? "asc" : prev === "asc" ? "desc" : null,
                 )
               }
               title={
                 sortOrder === "asc"
                   ? "Ordina Z - A"
                   : sortOrder === "desc"
-                  ? "Ripristina ordine originale"
-                  : "Ordina A - Z"
+                    ? "Ripristina ordine originale"
+                    : "Ordina A - Z"
               }
             >
               {sortOrder === "asc" ? (

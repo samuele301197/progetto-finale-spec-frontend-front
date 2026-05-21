@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 export default function NavBar() {
   return (
     <nav
-      className="navbar bg-dark text-white shadow-sm fixed-top"
+      className="navbar bg-dark bg-opacity-75 text-white shadow-sm fixed-top"
       style={{ zIndex: 1000 }}
     >
       <div className="container d-flex justify-content-between align-items-center py-2">
@@ -19,7 +19,7 @@ export default function NavBar() {
             to="/"
             className={({ isActive }) =>
               `nav-link text-decoration-none ${
-                isActive ? "text-secondary fw-bold" : "text-white"
+                isActive ? "my-color fw-bold" : "text-white"
               }`
             }
           >
@@ -30,7 +30,7 @@ export default function NavBar() {
             to="/list"
             className={({ isActive }) =>
               `nav-link text-decoration-none ${
-                isActive ? "text-secondary fw-bold" : "text-white"
+                isActive ? "my-color fw-bold" : "text-white"
               }`
             }
           >
@@ -41,7 +41,7 @@ export default function NavBar() {
             to="/favorites"
             className={({ isActive }) =>
               `nav-link text-decoration-none ${
-                isActive ? "text-secondary fw-bold" : "text-white"
+                isActive ? "my-color fw-bold" : "text-white"
               }`
             }
           >
@@ -52,7 +52,7 @@ export default function NavBar() {
             to="/comparatore"
             className={({ isActive }) =>
               `nav-link text-decoration-none ${
-                isActive ? "text-secondary fw-bold" : "text-white"
+                isActive ? "my-color fw-bold" : "text-white"
               }`
             }
           >
@@ -65,9 +65,7 @@ export default function NavBar() {
             to="/"
             title="Home"
             className={({ isActive }) =>
-              `text-decoration-none ${
-                isActive ? "text-secondary" : "text-white"
-              }`
+              `text-decoration-none ${isActive ? "my-color" : "text-white"}`
             }
           >
             <i className="fa-regular fa-house"></i>
@@ -77,9 +75,7 @@ export default function NavBar() {
             to="/list"
             title="Lista Vini"
             className={({ isActive }) =>
-              `text-decoration-none ${
-                isActive ? "text-secondary" : "text-white"
-              }`
+              `text-decoration-none ${isActive ? "my-color" : "text-white"}`
             }
           >
             <i className="fa-solid fa-wine-glass"></i>
@@ -89,9 +85,7 @@ export default function NavBar() {
             to="/favorites"
             title="Preferiti"
             className={({ isActive }) =>
-              `text-decoration-none ${
-                isActive ? "text-secondary" : "text-white"
-              }`
+              `text-decoration-none ${isActive ? "my-color" : "text-white"}`
             }
           >
             <i className="fa-regular fa-heart"></i>
@@ -101,9 +95,7 @@ export default function NavBar() {
             to="/comparatore"
             title="Comparatore"
             className={({ isActive }) =>
-              `text-decoration-none ${
-                isActive ? "text-secondary" : "text-white"
-              }`
+              `text-decoration-none ${isActive ? "my-color" : "text-white"}`
             }
           >
             <i className="fa-solid fa-scale-balanced"></i>

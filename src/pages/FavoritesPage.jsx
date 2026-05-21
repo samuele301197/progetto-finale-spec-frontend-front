@@ -52,8 +52,7 @@ export default function FavoritesPage() {
         overflow: "hidden",
       }}
     >
-      <div className="container my-4">
-        <h1 className="mb-4 text-center">I tuoi preferiti</h1>
+      <div className="container p-5 my-5">
         <div className="row">
           {favorites.map((wine) => (
             <div key={wine.id} className="col-12 col-sm-6 col-lg-4 mb-4">

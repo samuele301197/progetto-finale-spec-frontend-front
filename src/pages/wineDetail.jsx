@@ -64,7 +64,7 @@ export default function WineDetail() {
           </p>
           <WineDetailPairings wine={wine} />
           <p>
-            <strong>Prezzo:</strong> {wine.price.toFixed(2)}€
+            <strong>Prezzo medio in Cantina:</strong> {wine.price.toFixed(2)}€
           </p>
         </div>
         <div className="d-flex align-items-center gap-3 mb-3">
